@@ -11,8 +11,10 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
+        $tags=Tag::all();
+        $categories = Category::all();
         $posts = Post::where('status',2)->latest('id')->paginate(9);
-        return view('posts.index',compact('posts'));
+        return view('posts.index',compact('posts','categories','tags'));
     }
 
     public function show(Post $post){
