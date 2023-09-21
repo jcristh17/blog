@@ -1,4 +1,3 @@
-
 <x-app-layout>
 
     <div class="container py-8">
@@ -54,5 +53,4 @@
             {{ $posts->links() }}
         </div>
     </div>
-    
 </x-app-layout>

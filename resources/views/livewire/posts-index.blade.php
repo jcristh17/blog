@@ -1,28 +1,18 @@
 <div>
-
     <div class="input-group mb-3">
-        <select name="category_id" id="" wire:model.live="categoryID"
-            class="flex-shrink-0 text-sm text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100">
-
-            <option value="">Todas las categorias</option>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-
-        </select>
-        <x-input type="text" class="flex-1 form-control" placeholder="Enter a post name"
+        <span class="input-group-text ml-3" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <x-input type="text" class="flex-1 form-control mr-3" placeholder="Enter a post name"
             wire:model.live="search"></x-input>
-            <span class="input-group-text ml-3" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
     </div>
     <div class="hidden lg:inline-block float-left mr-8">
         <div class="mb-4">
             <p class="text-lg font-semibold">Ordenar por</p>
             <select class="form-control" wire:model.live="recents">
-                <option value="most_recent">Más recientes</option>
-                <option value="oldest">Más antiguos</option>
+                <option value="latest"  >Más recientes</option>
+                <option value="first" >Más antiguos</option>
             </select>
         </div>
-        {{-- <div class="mb-4">
+        <div class="mb-4">
             <p class="text-lg font-semibold">Categorías</p>
             <ul>
                 @foreach ($categories as $category)
@@ -31,16 +21,16 @@
                             <input wire:model.live="filters.category.{{ $category->id }}"
                                 id="checkbox{{ $category->id }}" checked type="checkbox" value="">
                             {{ $category->name }}
-                            <input type="checkbox"
+                            {{-- <input type="checkbox"
                                 
                                 class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                  name="category" value="{{ $category->id }}">
-                            {{ $category->name }}
+                            {{ $category->name }} --}}
                         </label>
                     </li>
                 @endforeach
             </ul>
-        </div> --}}
+        </div>
         <div class="mb-4">
             <p class="text-lg font-semibold">Tags</p>
             <ul>
@@ -82,8 +72,8 @@
                                 class="">
                                 {{ $post->name }}
                             </a></p>
-                        <p class="card-text">Author : {{ $post->user->name }}</p>
-                        <p class="card-text">Posted : {{ $post->created_at->diffForHumans()  }}</p>
+                        <p class="card-text">Posted by : {{ $post->user->name }}</p>
+                        <p class="card-text">Date : {{ $post->created_at }}</p>
 
                     </div>
                     <div class="card-footer">
