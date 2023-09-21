@@ -8,17 +8,17 @@ use App\Models\Post;
 use App\Models\Category;
 use Livewire\WithPagination;
 
+
 class PostsIndex extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
     public $search = '';
-    public $recents = '';
-    public $filters = [
-        'category' => [],
-    ];
+    public $recents = 'most_recent';
+    public $categoryID = '';
 
-    public function check(){
+    public function check()
+    {
         dd($this->recents);
     }
     public function render()
@@ -27,21 +27,19 @@ class PostsIndex extends Component
         $tags = Tag::all();
         $categories = Category::all();
 
-        
-         if ($this->recents == 'first') {
+
+        if ($this->recents == 'most_recent') {
             $posts =  Post::where('name', 'like', '%' . $this->search . '%')
                 ->where('status', 2)
-                ->first('id')
-                ->paginate(9);
-        }
-        else
-        {
-            $posts =  Post::where('name', 'like', '%' . $this->search . '%')
-                ->latest('status', 2)
+                ->Where('category_id', 'like', '%' . $this->categoryID . '%')
                 ->latest('id')
                 ->paginate(9);
-        } 
-
+        } else {
+            $posts =  Post::where('name', 'like', '%' . $this->search . '%')
+                ->where('status', 2)
+                ->where('category_id', 'like', '%' . $this->categoryID . '%')
+                ->paginate(9);
+        }
         return view('livewire.posts-index', compact('posts', 'categories', 'tags'));
     }
 
