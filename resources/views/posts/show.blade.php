@@ -21,8 +21,8 @@
                     @endif
                 </figure>
                 <div class="text-base text-justify text-gray-500 mt-4">
-                    <p class="card-text font-semibold">Posted by : {{ $post->user->name }}</p>
-                    <p class="card-text font-semibold mb-2">Date : {{ $post->created_at }}</p>
+                    <p class="card-text font-semibold">Author : {{ $post->user->name }}</p>
+                    <p class="card-text font-semibold mb-2">Posted : {{ $post->created_at->diffForHumans() }}</p>
                     {!! $post->body !!}
                 </div>
             </div>
