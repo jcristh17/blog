@@ -10,23 +10,24 @@
                 @endforeach
 
             </select>
-            <x-input type="text" class="w-full bg-white pl-2 text-base outline-0 " placeholder="search" wire:model.live="search"
-                id="" x-model="search"/>
-            <div
-                class="flex w-10 items-center justify-center rounded-r-lg border-gray-200 bg-indigo-900">
+            <x-input type="text" class="w-full bg-white pl-2 text-base outline-0 " placeholder="search"
+                wire:model.live="search" id="" x-model="search" />
+            <div class="flex w-10 items-center justify-center rounded-r-lg border-gray-200 bg-indigo-900">
                 <i class="fa-solid fa-magnifying-glass text-white"></i>
             </div>
         </div>
-        
+
     </div>
-   
-        <div class="mb-6">
-            <p class="text-lg font-semibold">Ordenar por</p>
-            <select class="flex-shrink-0 text-sm text-center text-gray-900 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 " wire:model.live="recents">
-                <option value="most_recent">Más recientes</option>
-                <option value="oldest">Más antiguos</option>
-            </select>
-        </div>
+
+    <div class="mb-6">
+        <p class="text-lg font-semibold">Ordenar por</p>
+        <select
+            class="flex-shrink-0 text-sm text-center text-gray-900 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 "
+            wire:model.live="recents">
+            <option value="most_recent">Más recientes</option>
+            <option value="oldest">Más antiguos</option>
+        </select>
+    </div>
 
     <div class="hidden lg:inline-block float-left mr-8">
         {{-- <div class="mb-4">
@@ -72,7 +73,7 @@
         </div> --}}
     </div>
     @if ($posts->count())
-   
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach ($posts as $post)
@@ -86,19 +87,24 @@
                             alt="">
                     @endif
                     <div class="p-4">
-                        <div class="flex items-center space-x-2">
-                            <img class="w-8 h-8 object-cover object-center rounded-full"
-                                src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}"
-                                alt="random user" />
-                            <p class="mb-1 text-sm text-primary-500">{{ $post->user->name }} •
-                                <time><i class="fa-regular fa-clock mr-1"></i>{{ $post->created_at->diffForHumans() }}</time>
-                            </p>
-                        </div>
-                        <h3 class="text-xl font-medium text-gray-900"><a href="{{ route('posts.show', $post) }}"
-                                class="">
+
+                        <h3 class="text-xl text-justify font-medium text-gray-900"><a
+                                href="{{ route('posts.show', $post) }}" class="">
                                 {{ $post->name }}
                             </a></h3>
+                        <div
+                            class="overflow-visible relative max-w-sm mx-auto bg-white  ring-1 ring-black/5 rounded-xl flex items-center gap-6  dark:highlight-white/5">
+                            <img class="absolute -left-4 w-9 h-9 rounded-full shadow-lg"
+                                src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}">
+                            <div class="flex flex-col py-1 pl-9">
+                                <strong
+                                    class="text-slate-900 text-sm font-medium dark:text-slate-800">{{ $post->user->name }}</strong>
+                                <span
+                                    class="text-slate-500 text-sm font-medium dark:text-slate-700">{{ $post->created_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
                         {{-- <p class="mt-1 text-gray-500">{{ $post->extract }}</p> --}}
+                        <hr class="mt-1">
                         <div class="mt-4 flex gap-2">
                             <p>
                                 @foreach ($post->tags as $tag)

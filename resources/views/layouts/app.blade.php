@@ -42,7 +42,7 @@
             {{ $slot }}
         </main>
     </div>
-
+    <x-footer/>
     @stack('modals')
 
     @livewireScripts
