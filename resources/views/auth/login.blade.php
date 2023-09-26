@@ -25,8 +25,7 @@
                 <form class="" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div>
-                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
-                            address</label>
+                        <x-label for="email" value="{{ __('Email') }}" />
                         <div class="my-2 flex flex-row">
                             <span
                                 class="z-highest rounded-l-lg w-10 h-10 flex justify-center items-center text-2xl border border-r-0"
@@ -41,8 +40,7 @@
 
                     <div>
                         <div class="flex items-center justify-between">
-                            <label for="password"
-                                class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                            <x-label for="password" value="{{ __('Password') }}" />
                             <div class="text-sm">
                                 @if (Route::has('password.request'))
                                     <a href="{{ route('password.request') }}"
