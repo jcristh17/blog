@@ -39,4 +39,5 @@ class PostController extends Controller
         $posts = $tag->posts()->where('status',2)->latest('id')->paginate(4);
         return view('posts.tag',compact('posts','tag'));
     }
+
 }

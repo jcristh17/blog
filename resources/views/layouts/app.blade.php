@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+    <script src="{{ asset('vendor/jquery.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-1.13.2/jquery-ui.min.css') }}">
+    <script src="{{ asset('vendor/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
  {{--    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-5.3.1-dist/css/bootstrap.min.css') }}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js') }}"></script> --}}

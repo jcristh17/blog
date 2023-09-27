@@ -1,7 +1,7 @@
 <div>
     <div class=" w-2/3 rounded-lg bg-gray-200 my-4 p-2 mx-auto">
-        <div class="flex" >
-            <select name="category_id" id="" wire:model.live="categoryID"
+        <div class="flex" x-data="{search:''}">
+            {{-- <select name="category_id" id="" wire:model.live="categoryID"
                 class="focus:border-indigo-900 focus:ring-indigo-900 flex-shrink-0 text-sm text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 ">
 
                 <option value="">Todas las categorias</option>
@@ -9,9 +9,9 @@
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
 
-            </select>
-            <x-input type="text" name="search" class="w-full bg-white pl-3 text-base outline-0 rounded-sm focus:border-indigo-900 focus:ring-indigo-900" placeholder="search"
-                  id="search" wire:model.blur.debounce.150ms="search" autocomplete="search"/>
+            </select> --}}
+            <x-input type="text" class="w-full bg-white pl-3 text-base outline-0 rounded-sm focus:border-indigo-900 focus:ring-indigo-900" placeholder="search"
+                x-model="search" wire:model="search" x-ref="posts" id="search" x-on:keyup="$refs.posts.innerText=search"/>
             
             <div class="flex w-10 items-center justify-center rounded-r-lg border-white bg-indigo-900 border-separate">
                 <i class="fa-solid fa-magnifying-glass text-white"></i>
@@ -19,7 +19,7 @@
         </div>
 
     </div>
-    {{$search}}
+
     <div class="mb-6">
         <p class="text-lg font-semibold">Ordenar por</p>
         <select
@@ -73,11 +73,11 @@
             </button>
         </div> --}}
     </div>
-    @if ($posts->count())
+    
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            @foreach ($posts as $post)
+            @foreach ($records as $post)
                 <div class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
                     @if ($post->image)
                         <img class="aspect-video w-full object-cover" src="{{ Storage::url($post->image->url) }}"
@@ -108,11 +108,11 @@
                         <hr class="mt-1">
                         <div class="mt-4 flex gap-2">
                             <p>
-                                @foreach ($post->tags as $tag)
+                                {{-- @foreach ($post->tags as $tag)
                                     <a href="{{ route('posts.tag', $tag) }}"
                                         class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
                                         {{ $tag->name }}</a>
-                                @endforeach
+                                @endforeach --}}
                             </p>
                         </div>
                     </div>
@@ -120,15 +120,6 @@
             @endforeach
 
         </div>
-        @if ($posts->hasPages())
-            <div class="footer mt-4 mx-auto">
-                {{ $posts->links() }}
-            </div>
-        @endif
-    @else
-        <div class="card-body py-4 px-6">
-            No records were found with these search terms...
-        </div>
-    @endif
+     
     
 </div>

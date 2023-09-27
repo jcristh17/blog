@@ -17,28 +17,26 @@ class PostsIndex extends Component
     public $recents = 'most_recent';
     public $categoryID = '';
 
-    public function check()
-    {
-        dd($this->recents);
-    }
+    
     public function render()
     {
         //dd($this->recents);
         $tags = Tag::all();
         $categories = Category::all();
 
+        //sleep(1);
 
         if ($this->recents == 'most_recent') {
             $posts =  Post::where('name', 'like', '%' . $this->search . '%')
                 ->where('status', 2)
                 ->Where('category_id', 'like', '%' . $this->categoryID . '%')
                 ->latest('id')
-                ->paginate(9);
+                ->paginate(8);
         } else {
             $posts =  Post::where('name', 'like', '%' . $this->search . '%')
                 ->where('status', 2)
                 ->where('category_id', 'like', '%' . $this->categoryID . '%')
-                ->paginate(9);
+                ->paginate(8);
         }
         return view('livewire.posts-index', compact('posts', 'categories', 'tags'));
     }

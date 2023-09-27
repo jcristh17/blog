@@ -17,6 +17,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "alpinejs": "^3.13.0"
+        "alpinejs": "^3.13.0",
+        "jquery": "^3.7.1"
     }
 }
