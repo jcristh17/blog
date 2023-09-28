@@ -3,7 +3,7 @@
     <div class="container mx-auto py-8">
         @livewire('posts-index')
     </div>
-    <script>
+    {{-- <script>
           var cursos = [
                 'Curso de Laravel',
                 'Curso de Vue',
@@ -31,32 +31,5 @@
                     //$('#form-search').submit();
                 } 
         }); 
-        /* $(document).ready(function() {
-
-            $('#search').keyup(function() {
-                var query = $(this).val();
-                if (query != '') {
-                    //var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url: "{{ route('search.posts') }}",
-                        //method: "POST",
-                        data: {
-                            query: query,
-                           // _token: _token
-                        },
-                        success: function(data) {
-                            $('#posts').fadeIn();
-                            $('#posts').html(data);
-                        }
-                    });
-                }
-            });
-
-            $(document).on('click', 'li', function() {
-                $('#search').val($(this).text());
-                $('#posts').fadeOut();
-            });
-
-        }); */
-    </script>
+    </script> --}}
 </x-app-layout>

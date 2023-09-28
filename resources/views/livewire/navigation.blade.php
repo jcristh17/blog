@@ -24,7 +24,7 @@
                                     aria-current="page">Dashboard</a> --}}
                                     @foreach ($categories as $category)
                                     <a href="{{route('posts.category',$category)}}"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">{{$category->name}}</a>
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ">{{$category->name}}</a>
                                     @endforeach
                                
                                 
@@ -79,6 +79,10 @@
                                         @can('admin.home')
                                         <a  class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                         tabindex="-1" id="user-menu-item-0" href="{{ route('admin.home') }}" >Dashboard</a>
+                                        @endcan
+                                        @can('admin.home')
+                                        <a  class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                        tabindex="-1" id="user-menu-item-0" href="{{ route('admin.dash') }}" >Dashboard v2</a>
                                         @endcan
                                        
                                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

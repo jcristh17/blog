@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Larablog') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -27,11 +27,8 @@
 
 <body class="font-sans antialiased">
     <x-banner />
-
+    
     <div class="min-h-screen bg-gray-100">
-        
-        @livewire('navigation')
-        
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">
@@ -42,12 +39,26 @@
         @endif
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        <div>
+            <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+                <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
+                    class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
+                {{-- Sidebar start --}}
+                @include('admin.sidebar.sidebar')
+                {{-- sidebar end --}}
+                <div class="flex flex-col flex-1 overflow-hidden">
+                    {{-- navbar section start --}}
+                    @include('admin.sidebar.nav-bar')
+                    {{-- navbar section end --}}
+                    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                        <div class="container px-6 py-8 mx-auto">
+                            {{$slot}}
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
     </div>
-        <x-footer />
-    
     @stack('modals')
 
     @livewireScripts

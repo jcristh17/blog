@@ -17,4 +17,11 @@ class HomeController extends Controller
         //dd($posts);
         return view('admin.index',compact('posts','users'));
     }
+    public function Adash()
+    {
+        $posts=Post::count();
+        $users=User::count();
+        //dd($posts);
+        return view('admin.dashboard-admin',compact('posts','users'));
+    }
 }

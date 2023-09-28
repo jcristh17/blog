@@ -78,4 +78,85 @@ return [
 
     'profile_photo_disk' => 'public',
 
+    'menu' => [
+        // Navbar items:
+        [
+            'type'         => 'navbar-search',
+            'text'         => 'search',
+            'topnav_right' => false,
+        ],
+        [
+            'type'         => 'fullscreen-widget',
+            'topnav_right' => true,
+        ],
+
+        // Sidebar items:
+        /* [
+            'type' => 'sidebar-menu-search',
+            'text' => 'search',
+        ], */
+        [
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
+        ],
+        [
+            'text'        => 'Dashboard',
+            'route'         => 'admin.home',
+            'icon'        => 'fas fa-tachometer-alt fa-fw',
+            'can'  => 'admin.home',
+            //'label'       => 4,
+            //'label_color' => 'success',
+        ],
+        ['header' => 'ADMINISTRATOR','can'  => 'admin.categories.index',],
+        [
+            'text'       => 'Users List',
+            'icon' => 'fas fa-fw fa-users',
+            'route'  => 'admin.users.index',
+            'active'=>  ['admin/users*'],
+            'can'  => 'admin.users.index',
+        ],
+        [
+            'text'       => 'Roles List',
+            'icon' => 'fas fa-fw fa-users-cog',
+            'route'  => 'admin.roles.index',
+            'active'=>  ['admin/roles*'],
+             'can'  => 'admin.roles.index',
+        ],
+        [
+            'text'       => 'Permissions List',
+            'icon' => 'fas fa-toolbox fa-fw',
+            'route'  => 'admin.permissions.index',
+            'active'=>  ['admin/permissions*'],
+             'can'  => 'admin.permissions.index',
+        ],
+        [
+            'text' => 'Categories',
+            'route'  => 'admin.categories.index',
+            'icon' => 'fa-brands fa-buffer',
+            'active'=>  ['admin/categories*'],
+            'can'  => 'admin.categories.index',
+        ],
+        [
+            'text' => 'Tags',
+            'route'  => 'admin.tags.index',
+            'icon' => 'far fa-fw fa-bookmark',
+            'active'=>  ['admin/tags*'],
+            'can'  => 'admin.tags.index',
+        ],
+        ['header' => 'BLOG OPTIONS'],
+        [
+            'text'       => 'Posts List',
+            'icon' => 'fas fa-fw fa-clipboard',
+            'route'  => 'admin.posts.index',
+            'can'  => 'admin.posts.index',
+        ],
+        [
+            'text'       => 'New Post',
+            'icon' => 'fas fa-fw fa-file',
+            'route'  => 'admin.posts.create',
+            'can'  => 'admin.posts.create',
+        ],
+      
+    ],
 ];

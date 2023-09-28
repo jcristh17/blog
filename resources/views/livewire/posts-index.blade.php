@@ -11,7 +11,7 @@
 
             </select>
             <x-input type="text" name="search" class="w-full bg-white pl-3 text-base outline-0 rounded-sm focus:border-indigo-900 focus:ring-indigo-900" placeholder="search"
-                  id="search" wire:model.blur.debounce.150ms="search" autocomplete="search"/>
+                  id="search" wire:model.live.debounce.150ms="search" autocomplete="search"/>
             
             <div class="flex w-10 items-center justify-center rounded-r-lg border-white bg-indigo-900 border-separate">
                 <i class="fa-solid fa-magnifying-glass text-white"></i>
@@ -19,7 +19,6 @@
         </div>
 
     </div>
-    {{$search}}
     <div class="mb-6">
         <p class="text-lg font-semibold">Ordenar por</p>
         <select
