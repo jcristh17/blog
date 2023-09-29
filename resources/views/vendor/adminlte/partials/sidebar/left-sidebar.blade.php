@@ -7,6 +7,7 @@
         @include('adminlte::partials.common.brand-logo-xs')
     @endif
 
+    
     {{-- Sidebar menu --}}
     <div class="sidebar">
         <nav class="pt-2">

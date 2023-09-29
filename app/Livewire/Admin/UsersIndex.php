@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 class UsersIndex extends Component
 {
     use WithPagination;
-    protected $paginationTheme = "bootstrap";
+    protected $paginationTheme = "tailwind";
     public $search='';
     public $qtity='10';
     public $sort = 'id';

@@ -1,11 +1,18 @@
-<x-admin-layout>
-    {{--  <a href="{{ route('admin.users.create') }}" class="btn btn-success float-right">New post</a> --}}
-    <h1><i class="fas fa-fw fa-users mr-2"></i> Assing role user </h1>
+@extends('adminlte::page')
 
+@section('title', 'LaraBlog')
+
+@section('content_header')
+    {{--  <a href="{{ route('admin.users.create') }}" class="btn btn-success float-right">New post</a> --}}
+    <h1><i class="fas fa-fw fa-users"></i> Assing role user </h1>
+
+@stop
+
+@section('content')
     @if (session('info'))
-    <x-alerts.alert-success>
-        <strong>{{ session('info') }}</strong>
-    </x-alerts.alert-success>
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
     @endif
     <div class="card">
         <div class="card-body">
@@ -25,4 +32,19 @@
             {!! Form::close() !!}
         </div>
     </div>
-</x-admin-layout>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+@stop
+
+@section('js')
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+@stop
+

@@ -1,98 +1,158 @@
 <div class="card">
-    <div class="card-header">
-
-        <div class="input-group mb-3">
-            <div class="items-center mr-1">
-
-                <select data-bs-toggle="tooltip" data-bs-title="Quantity of entries to show" wire:model.live="qtity"
-                    class="mx-3 form-control">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-
-            </div>
-            <span class="input-group-text ml-3" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <x-input type="text" class="flex-1 form-control mr-3" placeholder="Enter a user name or user email"
-                wire:model.live="search"></x-input>
-        </div>
-        @if ($users->count())
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
+    <div class="card">
+        <x-tables.table>
+            <x-slot name="tableName"><i class="fas fa-fw fa-users mr-2 mb-4"></i>Users List</x-slot>
+            <x-slot name="tools">
+                <div class="flex flex-row mb-1 sm:mb-0">
+                    <x-tables.records-select wire:model.live="qtity">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </x-tables.records-select>
+                    <x-tables.filter-select>
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </x-tables.filter-select>
+                </div>
+                <x-tables.input-search placeholder="Search" name="search" id="search" wire:model.live="search" />
+            </x-slot>
+            @if ($users->count())
+                <thead>
+                    <tr>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            User
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Rol
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Email
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Status
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
                         <tr>
-                            <th class="cursor-pointer" wire:click="order('id')">ID
-                                @if ($sort == 'id')
-                                    @if ($direction == 'asc')
-                                        <i class="fa-solid fa-arrow-down-1-9 float-right mt-1"></i>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-10 h-10">
+                                        <img class="w-full h-full rounded-full" src="{{ $user->profile_photo_url }}"
+                                            alt="{{ $user->name }}" />
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-gray-900 whitespace-no-wrap">
+                                            {{ $user->name }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                    @if ($user->roles->count())
+                                        @if ($user->roles->count() > 1)
+                                            @if ($user->hasRole('Admin'))
+                                                <span
+                                                    class="relative inline-block px-3 py-1 font-semibold text-green-700 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-green-300 opacity-50 rounded border-solid border-2 border-green-700 ">
+
+                                                    </span>
+                                                    <span
+                                                        class="relative">{{ $user->roles->pluck('name')->implode(', ') }}</span>
+                                                </span>
+                                            @endif
+                                        @else
+                                            @if ($user->hasRole('Admin'))
+                                                <span
+                                                    class="relative inline-block px-3 py-1 font-semibold text-green-700 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-green-300 opacity-50 rounded border-solid border-2 border-green-700">
+
+                                                    </span>
+                                                    <span
+                                                        class="relative">{{ $user->roles->pluck('name')->implode(',') }}</span>
+                                                </span>
+                                            @endif
+                                            @if ($user->hasRole('Blogger'))
+                                                <span
+                                                    class="relative inline-block px-3 py-1 font-semibold text-yellow-700 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-yellow-400 opacity-50 rounded-lg border-dashed border-2 border-gray-700">
+                                                    </span>
+                                                    <span
+                                                        class="relative">{{ $user->roles->pluck('name')->implode(',') }}</span>
+                                                </span>
+                                            @endif
+                                        @endif
                                     @else
-                                        <i class="fa-solid fa-arrow-up-1-9 float-right mt-1"></i>
+                                        <span
+                                            class="relative inline-block px-3 py-1 font-semibold text-gray-700 leading-tight">
+                                            <span aria-hidden
+                                                class="absolute inset-0 bg-gray-400 opacity-50 rounded-lg">
+                                            </span>
+                                            <span
+                                                class="relative">No Role</span>
+                                        </span>
                                     @endif
+                                </p>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                    {{ $user->email }}
+                                </p>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+                                @if ($user->email_verified_at != '')
+                                    <span
+                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                        <span aria-hidden
+                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">Verified</span>
+                                    </span>
                                 @else
-                                    <i class="fas fa-sort float-right mt-1"></i>
-                                @endif
-                            </th>
-                            <th class="cursor-pointer" wire:click="order('name')">Name
-                                {{-- sort --}}
-                                @if ($sort == 'name')
-                                    @if ($direction == 'asc')
-                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
-                                    @else
-                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
-                                    @endif
-                                @else
-                                    <i class="fas fa-sort float-right mt-1"></i>
+                                    <span
+                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                        <span aria-hidden
+                                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                        <span class="relative">Not Verified</span>
+                                    </span>
                                 @endif
 
-                            </th>
-                            <th>Email</th>
-                            <th >Verified</th>
-                            <th >Actions</th>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <a class=" bg-blue-700 p-3 rounded-xl text-white hover:bg-blue-500"
+                                    href="{{ route('admin.users.edit', $user) }}" data-bs-toggle="tooltip"
+                                    data-bs-title="Edit this user"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-
-                                @if ($user->email_verified_at!='')
-                                <td ><i class="fas fa-check-circle fa-lg" style="color: #068e2f;"></i></td>
-                                @else
-                                <td ><i class="fas fa-times-circle fa-lg" style="color: #ad0123;"></i></td>
-                                @endif
-
-                                <td width="10px">
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.users.edit', $user) }}"
-                                        data-bs-toggle="tooltip" data-bs-title="Edit this user"><i
-                                            class="fa-regular fa-pen-to-square fa-lg"></i></a>
-                                </td>
-                                {{-- <td width="10px">
-                                    <form action="{{ route('admin.user.destroy', $user) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit" data-bs-toggle="tooltip"
-                                            data-bs-title="Delete this category"><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </form>
-                                </td> --}}
-                            </tr>
-                        @endforeach
-                    </tbody>
-
-                </table>
-                @if ($users->hasPages())
-                    <div class="footer mt-4">
-                        {{ $users->links() }}
+                    @endforeach
+                </tbody>
+                <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row  xs:justify-between          ">
+                    @if ($users->hasPages())
+                        <div class="footer mt-4">
+                            {{ $users->links() }}
+                        </div>
+                    @endif
+                @else
+                    <div class="card-body py-4 px-6">
+                        No users were found with these search terms...
                     </div>
-                @endif
-            </div>
-        @else
-            <div class="card-body py-4 px-6">
-                No users were found with these search terms...
-            </div>
-        @endif
-
+            @endif
     </div>
+    </x-tables.table>
+</div>
+</div>
