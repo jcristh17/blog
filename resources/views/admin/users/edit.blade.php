@@ -1,18 +1,33 @@
 <x-admin-layout>
     {{--  <a href="{{ route('admin.users.create') }}" class="btn btn-success float-right">New post</a> --}}
-    <h1><i class="fas fa-fw fa-users mr-2"></i> Assing role user </h1>
 
     @if (session('info'))
-    <x-alerts.alert-success>
-        <strong>{{ session('info') }}</strong>
-    </x-alerts.alert-success>
+        <x-alerts.success>
+            <strong>{{ session('info') }}</strong>
+        </x-alerts.success>
     @endif
-    <div class="card">
-        <div class="card-body">
-            <p class="h5">User name:</p>
-            <p class="form-control">{{ $user->name }}</p>
+
+    <!-- component -->
+    <!-- Container -->
+    <!--Card -->
+    <div
+        class="mx-auto w-full p-12 
+            px-6 py-10 sm:px-10 sm:py-6 
+            bg-white rounded-lg shadow-md lg:shadow-lg">
+
+        <!-- Card Title -->
+        <h2 class="text-center font-semibold text-2xl lg:text-3xl text-gray-800">
+            <i class="fas fa-fw fa-users mr-2 mb-4"></i> Edit role user
+        </h2>
+        <div class="bg-white rounded shadow-md lg:shadow-2xl p-4 border-t-2 border-gray-950">
             {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
-            <h5>Roles List</h5>
+            <!-- Email Input -->
+            <label class="block text-xs font-semibold text-gray-600 uppercase mb-2">User name:</label>
+            <x-input class="w-full" value="{{ $user->name }}" disabled />
+
+            <!-- Password Input -->
+            <label for="password" class="block mt-4 text-xs font-semibold text-gray-600 uppercase mb-2">Role
+                List:</label>
             @foreach ($roles as $role)
                 <div>
                     <label>
@@ -21,8 +36,12 @@
                     </label>
                 </div>
             @endforeach
-            {!! Form::submit('Assing Role', ['class'=>'btn btn-primary mt-2']) !!}
+            <!-- Auth Buttton -->
+            <!-- Another Auth Routes -->
+            <x-buttons.primary-button class="btn-primary mt-2" type="submit">Assing Role</x-buttons.primary-button>
+            {{-- {!! Form::submit('Assing Role', ['class'=>'btn-primary']) !!} --}}
             {!! Form::close() !!}
         </div>
+
     </div>
 </x-admin-layout>

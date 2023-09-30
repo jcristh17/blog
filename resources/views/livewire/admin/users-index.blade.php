@@ -37,8 +37,8 @@
                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Status
                         </th>
-                        <th
-                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        <th 
+                            class=" w-32 px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Actions
                         </th>
                     </tr>
@@ -134,9 +134,9 @@
 
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <a class=" bg-blue-700 p-3 rounded-xl text-white hover:bg-blue-500"
+                                <a class=" bg-blue-700 p-2 rounded text-white hover:bg-blue-500"
                                     href="{{ route('admin.users.edit', $user) }}" data-bs-toggle="tooltip"
-                                    data-bs-title="Edit this user"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
+                                    data-bs-title="Edit this user">Edit Role</a>
                             </td>
                         </tr>
                     @endforeach

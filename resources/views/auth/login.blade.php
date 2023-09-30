@@ -26,14 +26,14 @@
                     @csrf
                     <div>
                         <x-label for="email" value="{{ __('Email') }}" />
-                        <div class="my-2 flex flex-row">
+                        <div class="relative w-full mx-auto py-2">
                             <span
-                                class="z-highest rounded-l-lg w-10 h-10 flex justify-center items-center text-2xl border border-r-0"
+                                class="absolute inset-y-0 left-0 flex items-center pl-3"
                                 mode="render" block="">
                                 <i class="fa-solid fa-at text-indigo-600"></i>
                             </span>
                             <x-input type="email" name="email" id="email"
-                                class="h-10 border border-gray-200 rounded-r-lg outline-none focus:ring-1 ring-blue-300 w-full pl-1"
+                                class="pr-4 pl-10 h-10 border border-gray-200 rounded-r-lg outline-none focus:ring-1 ring-blue-300 w-full pl-1"
                                 :value="old('email')" required autofocus autocomplete="username" />
                         </div>
                     </div>
@@ -48,20 +48,20 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="my-2 flex flex-row">
+                        <div class="relative w-full mx-auto py-2">
                             <span
-                                class="z-highest rounded-l-lg w-10 h-10 flex justify-center items-center text-2xl border border-r-0"
+                                class="absolute inset-y-0 left-0 flex items-center pl-3"
                                 mode="render" block="">
                                 <i class="fa-solid fa-key text-indigo-600"></i>
                             </span>
                             <x-input type="password"
-                                class="h-10 border border-gray-200 rounded-r-lg outline-none focus:ring-1 ring-blue-300 w-full pl-1"
+                                class="pr-4 pl-10 h-10 border border-gray-200 rounded-r-lg outline-none focus:ring-1 ring-blue-300 w-full pl-1"
                                 id="password" name="password" placeholder="" required
                                 autocomplete="current-password" />
                         </div>
                     </div>
 
-                    <div>
+                    <div class="py-2">
                         <x-button
                             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
                             in</x-button>

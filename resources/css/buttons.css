@@ -1,0 +1,12 @@
+.btn-primary {
+    @apply bg-blue-800 hover:bg-blue-600 active:bg-blue-700  focus:ring-blue-600 ;
+}
+.btn-success {
+    @apply  bg-green-800  hover:bg-green-600 active:bg-green-700 focus:ring-green-600 ;
+}
+.btn-warning {
+    @apply  bg-yellow-800 hover:bg-yellow-600 active:bg-yellow-700 focus:ring-yellow-600 ;
+}
+.btn-info {
+    @apply bg-cyan-800 hover:bg-cyan-600 active:bg-cyan-700 focus:ring-cyan-600 ;
+}
