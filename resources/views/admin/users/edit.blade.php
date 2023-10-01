@@ -17,9 +17,9 @@
 
         <!-- Card Title -->
         <h2 class="text-center font-semibold text-2xl lg:text-3xl text-gray-800">
-            <i class="fas fa-fw fa-users mr-2 mb-4"></i> Edit role user
+            <i class="fas fa-fw fa-users mr-2 mb-4"></i> Edit user role
         </h2>
-        <div class="bg-white rounded shadow-md lg:shadow-2xl p-4 border-t-2 border-gray-950">
+        <div class="bg-white rounded  p-4 border-t-2 border-gray-950">
             {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
             <!-- Email Input -->
             <label class="block text-xs font-semibold text-gray-600 uppercase mb-2">User name:</label>
@@ -31,7 +31,7 @@
             @foreach ($roles as $role)
                 <div>
                     <label>
-                        {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+                        {!! Form::checkbox('roles[]', $role->id, null, ['class' => ' mr-1']) !!}
                         {{ $role->name }}
                     </label>
                 </div>

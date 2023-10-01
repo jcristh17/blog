@@ -15,6 +15,8 @@
     <script src="{{ asset('vendor/jquery.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-1.13.2/jquery-ui.min.css') }}">
     <script src="{{ asset('vendor/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{--    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-5.3.1-dist/css/bootstrap.min.css') }}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js') }}"></script> --}}
@@ -28,10 +30,10 @@
 <body class="font-sans antialiased">
     <x-banner />
 
-    <div class="min-h-screen bg-gray-100">
-        
+    <div class="min-h-screen bg-white">
+
         @livewire('navigation')
-        
+
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">
@@ -46,10 +48,10 @@
             {{ $slot }}
         </main>
     </div>
-        <x-footer />
-    
-    @stack('modals')
+    <x-footer />
 
+    @stack('modals')
+    @stack('js')
     @livewireScripts
 </body>
 

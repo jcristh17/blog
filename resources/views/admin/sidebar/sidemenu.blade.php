@@ -1,4 +1,4 @@
-<nav class="mt-10">
+<nav class="mt-10 border-t border-gray-100">
     @can('admin.home')
         <x-side-menu-nav-link href="{{ route('admin.dash') }}" :active="request()->routeIs('admin.dash')">
             <i class="fa-solid fa-house fa-lg"></i><span class="mx-3">Dashboard</span>

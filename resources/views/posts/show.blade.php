@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="container mx-auto py-8">
+    <div class="container mx-auto py-8 ">
         <h1 class="text-4xl font-bold text-gray-600">{{ $post->name }}</h1>
 
         {{-- <div class="text-lg text-gray-500 mb-2">
@@ -65,7 +65,7 @@
                                                 alt="">
                                         @endif
 
-                                        <div class="bg-white rounded px-4">
+                                        <div class="rounded px-4">
                                             <span class="text-green-700 text-sm hidden md:block">
                                                 {{ $post->category->name }}
                                             </span>
