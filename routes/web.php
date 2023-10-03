@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\AuthGoogleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchPostsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +18,8 @@ use App\Http\Controllers\SearchPostsController;
 |
 */
 
-Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::get('category/{category}', [PostController::class, 'category'])->name('posts.category');
 Route::get('tag/{tag}', [PostController::class, 'tag'])->name('posts.tag');
 Route::get('search', [SearchPostsController::class, 'posts'])->name('search.posts');
@@ -29,4 +32,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    
+    Route::get('/addpasswordgoogle', [AuthGoogleController::class, 'setPasswordIndex'])->name('setPasswordIndex');
+    Route::patch('/setPasswordUser/{user}', [AuthGoogleController::class, 'setPasswordUser'])->name('setPasswordUser');
 });
+Route::get('/auth/redirect', [AuthController::class, 'redirect']);
+Route::get('/auth/callback-url', [AuthController::class, 'callback']);

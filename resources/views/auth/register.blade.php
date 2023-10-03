@@ -32,8 +32,8 @@
                     autocomplete="new-password" />
 
                 <x-icon-input class="w-full" icon="fa-solid fa-lock text-indigo-600" iconcolor="text-indigo-600"
-                    id="password_confirmation" type="password" placeholder="Confirmation password" name="password_confirmation" required
-                    autocomplete="new-password" />
+                    id="password_confirmation" type="password" placeholder="Confirmation password"
+                    name="password_confirmation" required autocomplete="new-password" />
 
                 <div>
                     <x-button
@@ -48,7 +48,12 @@
                 <a href="{{ route('login') }}"
                     class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</a>
             </p>
-
+            <div class="flex items-center justify-center mt-4">
+                <a href="{{ url('/auth/redirect') }}"
+                    class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-black 
+                focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"><i
+                        class="fa-brands fa-google" style="margin-right: 5px;"></i> Register with Google</a>
+            </div>
         </div>
 
     </x-authentication-card>

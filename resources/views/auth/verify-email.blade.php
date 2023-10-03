@@ -1,10 +1,12 @@
 <x-guest-layout>
-    <x-authentication-card>
+    <x-authentication-card class="">
         <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
+        </x-slot>
+        <x-slot name="title">
+            Verify your account
+        </x-slot>
+        <div class=" text-justify mb-4 text-sm text-gray-600">
             {{ __('Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
         </div>
 
@@ -14,14 +16,12 @@
             </div>
         @endif
 
-        <div class="mt-4 flex items-center justify-between">
+        <div class="mt-4">
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 
-                <div>
-                    <x-button type="submit">
-                        {{ __('Resend Verification Email') }}
-                    </x-button>
+                <div class="">
+                    <x-button class="w-full items-center justify-center">{{ __('Resend Verification Email') }}</x-button>
                 </div>
             </form>
 
