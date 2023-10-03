@@ -7,17 +7,17 @@
             {!! $post->extract !!}
         </div> --}}
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 ">
             {{-- contenido principal --}}
-            <div class="col-span-2">
+            <div class="col-span-2 bg-gray-100 p-4 rounded">
                 <div class="mb-4 md:mb-0 w-full aspect-video mx-auto relative rounded-lg">
                     <div class="absolute left-0 bottom-0 w-full h-full z-10"
                         style="background-image: linear-gradient(180deg,transparent,rgba(0,0,0,.7));">
                         @if ($post->image)
-                            <img class="absolute left-0 top-0 w-full h-full z-0 object-cover"
+                            <img class="absolute left-0 top-0 w-full h-full z-0 object-cover rounded"
                                 src="{{ Storage::url($post->image->url) }}" alt="">
                         @else
-                            <img class="absolute left-0 top-0 w-full h-full z-0 object-cover"
+                            <img class="absolute left-0 top-0 w-full h-full z-0 object-cover rounded"
                                 src="https://cdn.pixabay.com/photo/2023/09/05/16/49/mushroom-8235504_1280.jpg"
                                 alt="">
                         @endif
@@ -34,20 +34,20 @@
                                 class="h-10 w-10 rounded-full mr-2 object-cover" />
                             <div>
                                 <p class="font-semibold text-gray-200 text-sm"> {{ $post->user->name }} </p>
-                                <p class="font-semibold text-gray-400 text-xs">
+                                <p class="font-semibold text-gray-300 text-xs">
                                     {{ $post->created_at->format('l jS \\of F Y h:i A') }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-base text-justify text-gray-500 mt-4">
+                <div class="text-base text-justify text-gray-600 mt-4">
 
                     {!! $post->body !!}
                 </div>
             </div>
             {{-- contenido relacionado --}}
-            <aside>
+            <aside class="bg-gray-100 p-4 rounded">
                 <h1 class="text-2xl font-bold text-gray-600 mb-4">Post related</h1>
                 <ul>
                     @foreach ($similares as $similar)
