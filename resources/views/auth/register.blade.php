@@ -41,6 +41,16 @@
                         Sign up</x-button>
                 </div>
 
+                <div class="mt-2">
+                    <a href="{{ url('/auth/redirect') }}">
+                        <x-secondary-button
+                            class="justify-center w-full border  border-gray-300 hover:border-gray-500 px-2 rounded-md">
+                            <img class="w-5 mr-2" src="{{ asset('storage/images/google.png') }}">
+                            Sign up with Google
+                        </x-secondary-button>
+                    </a>
+                </div>
+
             </form>
 
             <p class="mt-10 text-center text-sm text-gray-500">
@@ -48,12 +58,6 @@
                 <a href="{{ route('login') }}"
                     class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</a>
             </p>
-            <div class="flex items-center justify-center mt-4">
-                <a href="{{ url('/auth/redirect') }}"
-                    class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-black 
-                focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"><i
-                        class="fa-brands fa-google" style="margin-right: 5px;"></i> Register with Google</a>
-            </div>
         </div>
 
     </x-authentication-card>

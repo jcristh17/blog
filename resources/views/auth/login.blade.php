@@ -28,6 +28,20 @@
                         class="flex w-full active:bg-indigo-900 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
                         in</x-button>
                 </div>
+                <div class="mt-2">
+                    <a href="{{ url('/login/redirect') }}">
+                        <x-secondary-button
+                            class="justify-center w-full border  border-gray-300 hover:border-gray-500 px-2 rounded-md">
+                            <img class="w-5 mr-2" src="{{ asset('storage/images/google.png') }}">
+                            Sign in with Google
+                        </x-secondary-button>
+                    </a>
+                    @if (session('error'))
+                        <x-alerts.danger>
+                            <strong>{{ session('error') }}</strong>
+                        </x-alerts.danger>
+                    @endif
+                </div>
             </form>
             <p class="mt-10 text-center text-sm text-gray-500">Not have account?
                 <a href="{{ route('register') }}"

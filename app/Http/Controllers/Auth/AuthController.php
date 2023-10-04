@@ -23,31 +23,22 @@ class AuthController extends Controller
 
         $userGoogle = Socialite::driver('google')->user();
 
-        $fecha = Carbon::now();
-        $user = User::updateOrCreate([
-            'google_id' => $userGoogle->id,
-        ], [
-            'name' => $userGoogle->name,
-            'email' => $userGoogle->email,
-            'email_verified_at' => $fecha,
-            'google_token' => $userGoogle->token,
 
-        ]);
-
-        Auth::login($user);
-
-        if(auth()->user()->password!="")
-        {
+        if ($user = User::where('google_id', $userGoogle->id)->first()) {
+            Auth::login($user);
             return redirect()->route('posts.index');
-            //return view('dashboard');
+        } else {
+            //$fecha = Carbon::now();
+            $user = User::updateOrCreate([
+                'google_id' => $userGoogle->id,
+            ], [
+                'name' => $userGoogle->name,
+                'email' => $userGoogle->email,
+                //'email_verified_at' => $fecha,
+                'google_token' => $userGoogle->token,
+            ]);
+            Auth::login($user);
+            return redirect()->route('posts.index');
         }
-        else{
-            return redirect()->route('setPasswordIndex');
-            //$this->setPasswordIndex();
-            //return view('auth.set-password-google-auth');
-        }
-        //return redirect('addpasswordgoogle');
     }
-
-    
 }

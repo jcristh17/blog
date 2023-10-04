@@ -36,5 +36,9 @@ Route::middleware([
     Route::get('/addpasswordgoogle', [AuthGoogleController::class, 'setPasswordIndex'])->name('setPasswordIndex');
     Route::patch('/setPasswordUser/{user}', [AuthGoogleController::class, 'setPasswordUser'])->name('setPasswordUser');
 });
+//register with google routes
 Route::get('/auth/redirect', [AuthController::class, 'redirect']);
 Route::get('/auth/callback-url', [AuthController::class, 'callback']);
+//login with google routes
+Route::get('/login/redirect', [AuthGoogleController::class, 'redirect']);
+Route::get('/login/callback-url', [AuthGoogleController::class, 'callback']);
