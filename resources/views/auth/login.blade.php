@@ -29,7 +29,7 @@
                         in</x-button>
                 </div>
                 <div class="mt-2">
-                    <a href="{{ url('/login/redirect') }}">
+                    <a href="{{ url('/auth/redirect') }}">
                         <x-secondary-button
                             class="justify-center w-full border  border-gray-300 hover:border-gray-500 px-2 rounded-md">
                             <img class="w-5 mr-2" src="{{ asset('storage/images/google.png') }}">

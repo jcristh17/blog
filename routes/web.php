@@ -39,6 +39,3 @@ Route::middleware([
 //register with google routes
 Route::get('/auth/redirect', [AuthController::class, 'redirect']);
 Route::get('/auth/callback-url', [AuthController::class, 'callback']);
-//login with google routes
-Route::get('/login/redirect', [AuthGoogleController::class, 'redirect']);
-Route::get('/login/callback-url', [AuthGoogleController::class, 'callback']);
