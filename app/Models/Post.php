@@ -33,6 +33,6 @@ class Post extends Model
         return "slug";
     }
     public function comments(){
-        return $this->belongsToMany(Comments::class);
+        return $this->hasMany(Comments::class);
     }
 }

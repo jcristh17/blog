@@ -71,9 +71,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts(){
         return $this->HasMany(Post::class);
     }
-    public function comments(){
+    /* public function comments(){
         return $this->HasMany(Comments::class);
-    }
+    } */
     public function adminlte_desc()
         {
             return Auth::user()->email;

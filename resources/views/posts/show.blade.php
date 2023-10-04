@@ -44,8 +44,11 @@
                 <div class="text-base text-justify text-gray-600 mt-4">
 
                     {!! $post->body !!}
+                    @livewire('comments-index', ['post' => $post])
                 </div>
+                
             </div>
+            
             {{-- contenido relacionado --}}
             <aside class="bg-gray-100 p-4 rounded">
                 <h1 class="text-2xl font-bold text-gray-600 mb-4">Post related</h1>
@@ -90,20 +93,9 @@
                     @endforeach
                 </ul>
             </aside>
-            <div class="post">
-                <p>
-                    {{-- <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a> --}}
-                    <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                    <span class="float-right">
-                        <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                        </a>
-                    </span>
-                </p>
-                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-            </div>
-        </div>
 
+        </div>
+        
     </div>
 
 </x-app-layout>
