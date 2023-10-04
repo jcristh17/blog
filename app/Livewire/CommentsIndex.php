@@ -44,4 +44,8 @@ class CommentsIndex extends Component
     {
         $this->pagination=$this->pagination-2;
     }
+    public function deletecomment(Comments $comment){
+        $comment->delete();
+        $this->dispatch('render')->to(CommentsIndex::class);
+    }
 }
