@@ -71,7 +71,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 @foreach ($posts as $post)
-                    <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+                    <article class="overflow-hidden rounded-lg shadow-lg transition hover:shadow-2xl">
                         @if ($post->image)
                             <img class="h-56 w-full object-cover" src="{{ Storage::url($post->image->url) }}"
                                 alt="">
@@ -93,9 +93,9 @@
                                 </h3>
                             </a>
 
-                            <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+                            {{-- <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
                                 {{ $post->extract }}
-                            </p>
+                            </p> --}}
                             <div class="mt-1 flex gap-2">
                                 <p>
                                     @foreach ($post->tags as $tag)
