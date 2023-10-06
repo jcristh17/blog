@@ -1,50 +1,23 @@
     <div class=" container mx-auto items-center justify-center shadow-lg mt-20 mb-4 w-full py-2">
-        <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Comments Section</h2>
+        <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Comments Section
+            ({{ $post->comments->whereNull('parent_id')->count() }})</h2>
         @auth
-            <div class="flex flex-wrap -mx-3 mb-6 w-full">
-
-                <div class="w-full md:w-full mb-2 mt-2">
-                    <textarea
-                        class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
-                        name="body" id="body" placeholder='Type Your Comment' wire:model="Comment"></textarea>
-                    <x-input-error for="Comment"></x-input-error>
-                </div>
-                {{-- <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
-                    <div class="w-full flex items-start md:w-full px-3">
-                        <svg fill="none" class="w-5 h-5 text-gray-600 mr-1" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <p class="text-xs md:text-sm pt-px">Some HTML is okay.</p>
-                    </div> --}}
-                <div class="-mr-1">
-                    <x-buttons.primary-button wire:click="save()">
-                        Leave Comment
-                    </x-buttons.primary-button>
-                </div>
-            </div>
-
+            @include('livewire.comments.comment-form')
         @endauth
         <div>
             @if ($post->comments->count())
-                @foreach ($comments->whereNull('parent_id') as $comment)
+                @foreach ($comments as $comment)
                     <div
-                        class="items-center w-full px-6 py-2 mx-auto mt-5 mb-5 bg-white border border-gray-200 rounded-lg xl:w-full">
-                        <div x-data="{ show: false }">
+                        class="items-center w-full px-6 py-2 mx-auto mt-2 mb-2 bg-white border-l-4 border border-l-green-300 rounded-lg xl:w-full">
+                        <div>
                             @auth
                                 @if (auth()->user()->id == $comment->user->id)
                                     <x-danger-button title="Delete this comment"
                                         class="mb-2 bg-transparent hover:bg-transparent border-none focus:border-none active:bg-transparent focus:ring-transparent float-right cursor-pointer"
                                         wire:click="deletecomment({{ $comment }})">
-                                        <i class="fa-solid fa-trash fa-xl text-gray-700 hover:text-red-500"></i>
+                                        <i class="fa-solid fa-trash fa-lg text-gray-700 hover:text-red-500"></i>
                                     </x-danger-button>
                                 @endif
-                                <x-danger-button title="Reply this comment"
-                                    class="bg-transparent hover:bg-transparent border-none focus:border-none active:bg-transparent focus:ring-transparent float-right cursor-pointer"
-                                    wire:click="" x-on:click="show = !show">
-                                    <i class="fa-solid fa-reply fa-xl text-gray-700 hover:text-blue-500"></i>
-                                </x-danger-button>
                             @endauth
                             <div class="flex mt-3">
                                 <img src="{{ $comment->user->profile_photo_url }}" alt="{{ $comment->user->name }}"
@@ -52,34 +25,42 @@
                                 <div>
                                     <p class="font-semibold text-gray-600 text-sm"> {{ $comment->user->name }} </p>
                                     <p class="font-semibold text-gray-400 text-xs">
-                                        {{ $comment->created_at->format('l jS \\of F Y h:i A') }}</p>
+                                        {{ $comment->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
                             <p class="mt-2 text-sm text-gray-600 sm:text-lg md:text-sm">
                                 {{ $comment->body }}</p>
-                            <div x-show="show" class="mt-1">
-
-                                <form wire:submit="saveReply({{ $comment }})">
-                                    <div class="flex">
-                                        <x-input class="w-full" placeholder="your reply" wire:model="reply"
-                                            name="reply" id="reply" required></x-input>
-                                        <x-buttons.info-button class="ml-1" type="submit"
-                                            {{-- wire:click="" --}}>Reply</x-buttons.info-button>
-                                    </div>
-                                </form>
-
-                                <x-input-error for="reply"></x-input-error>
-                            </div>
                         </div>
-                        @include('livewire.comments.replies')
+                        <div x-data="{ showReplies: false, showInputReply: false }" class="mt-1">
+                            @include('livewire.comments.reply-form')
+                            <i class="fa-solid fa-thumbs-up  text-gray-700 hover:cursor-pointer hover:text-red-300"></i>
+                            @auth
+                                <p class="ml-2 inline text-sm hover:underline hover:cursor-pointer"
+                                    x-on:click="showInputReply = !showInputReply">Reply<i
+                                        class="ml-1 fa-solid fa-comment-dots  text-gray-700"></i></p>
+                            @endauth
+                            @if ($comment->child->count() > 0)
+                                {{-- <x-icon-btn title="Show replies" x-on:click="showReplies = !showReplies"> --}}
+                                <div class="inline">
+                                    <p class="ml-2 inline text-sm hover:underline hover:cursor-pointer"
+                                        x-on:click="showReplies = !showReplies">
+                                        Show all replies ({{ $comment->child->count() }})
+
+                                    </p>
+                                </div>
+                                {{-- </x-icon-btn> --}}
+                                @include('livewire.comments.replies')
+                            @endif
+                        </div>
                     </div>
                 @endforeach
-                @if ($post->comments->count() > 2)
+                @if ($post->comments->whereNull('parent_id')->count() > 5)
                     <div class="items-center text-center cursor-pointer">
-                        @if ($pagination < $post->comments->count())
-                            <a wire:click="incrementar()">Show more...</a>
+                        @if ($pagination < $post->comments->whereNull('parent_id')->count())
+                            <a wire:click="incrementar()" class="hover:underline hover:cursor-pointer">Show more ...</a>
                         @else
-                            <a wire:click="decrementar()">Show less...</a>
+                            <a wire:click="decrementar()" class="hover:underline hover:cursor-pointer">Hide
+                                comments...</a>
                         @endif
                     </div>
                 @endif

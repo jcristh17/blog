@@ -1,28 +1,28 @@
-@if ($comment->child)
-    @foreach ($comment->child as $item)
-        <div class="ml-4 border border-gray-200 rounded-lg p-2 my-2 bg-gray-200">
-            @auth
-                @if (auth()->user()->id == $item->user->id)
-                    <x-danger-button title="Delete this reply"
-                        class="bg-transparent hover:bg-transparent border-none focus:border-none active:bg-transparent focus:ring-transparent float-right cursor-pointer"
-                        wire:click="deletecomment({{ $item }})">
-                        <i class="fa-solid fa-trash fa-xl text-gray-700 hover:text-red-500"></i>
-                    </x-danger-button>
-                @endif
-            @endauth
-            <div class="flex mt-3">
+@foreach ($comment->child as $item)
+    <div class="ml-4 border-l-4 border-l-blue-500 bg-blue-100 rounded"
+        x-show="showReplies">
+        @auth
+            @if (auth()->user()->id == $item->user->id)
+                <i class="px-2 py-2 float-right fa-solid fa-trash fa-md text-gray-700 hover:text-red-500"
+                    wire:click="deletecomment({{ $item }})">
+                </i>
+            @endif
+        @endauth
+        <div class="my-1 p-1">
+            <div class="items-center flex ">
                 <img src="{{ $item->user->profile_photo_url }}" alt="{{ $item->user->name }}"
-                    class="h-10 w-10 rounded-full mr-2 object-cover" />
-                <div>
-                    <p class="font-semibold text-gray-600 text-sm"> {{ $item->user->name }}
-                    </p>
-                    <p class="font-semibold text-gray-400 text-xs">
-                        {{ $item->created_at->format('l jS \\of F Y h:i A') }}</p>
-                </div>
+                    class="h-7 w-7 rounded-full mr-1 object-cover" />
+
+                <p class="font-semibold text-gray-700 text-xs"> {{ $item->user->name }}
+                </p>
+                <p class="font-semibold text-gray-500 text-xs ml-1">
+                    - {{ $item->created_at->diffForHumans() }}</p>
             </div>
 
-            <p class="mt-2 text-sm text-gray-600 sm:text-lg md:text-sm">
+            <p class="px-2 text-sm text-gray-600 sm:text-lg md:text-sm">
                 {{ $item->body }}</p>
         </div>
-    @endforeach
-@endif
+
+
+    </div>
+@endforeach

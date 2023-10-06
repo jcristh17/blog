@@ -11,51 +11,58 @@ class CommentsIndex extends Component
     public $post;
     public $Comment;
     public $reply;
-    public $pagination=10;
+    public $pagination = 5;
     public $count;
+    public $hasReplies = false;
     protected $rules = [
         'Comment' => 'required',
     ];
     public function mount($post)
     {
-        $this->post=$post;
+        $this->post = $post;
         //$this->count=$post->comments->count();
     }
     public function render()
     {
-        $comments=Comments::where('post_id',$this->post->id)->latest('id')->paginate($this->pagination);
-        return view('livewire.comments.comments-index',compact('comments'));
+        $comments = Comments::where('post_id', $this->post->id)
+            ->whereNull('parent_id')
+            ->latest('id')->paginate($this->pagination);
+        //$comments=Comments::where('post_id',$this->post->id)->latest('id')->get();
+        return view('livewire.comments.comments-index', compact('comments'));
     }
 
-    public function save(){
+    public function save()
+    {
         $this->validate();
         Comments::create([
             'post_id' => $this->post->id,
             'user_id' => auth()->user()->id,
-            'body'=>$this->Comment
+            'body' => $this->Comment
         ]);
         $this->reset(['Comment']);
         $this->dispatch('render')->to(CommentsIndex::class);
     }
     public function incrementar()
     {
-        $this->pagination=$this->pagination+2;
+        $this->pagination = $this->pagination + 2;
     }
     public function decrementar()
     {
-        $this->pagination=$this->pagination-2;
+        $this->pagination = 5;
     }
-    public function deletecomment(Comments $comment){
+    public function deletecomment(Comments $comment)
+    {
         $comment->delete();
         $this->dispatch('render')->to(CommentsIndex::class);
     }
-    public function saveReply(Comments $comment){
+    public function saveReply(Comments $comment)
+    {
         if ($this->reply) {
             Comments::create([
                 'post_id' => $this->post->id,
                 'user_id' => auth()->user()->id,
-                'parent_id'=>$comment->id,
-                'body'=>$this->reply
+                'parent_id' => $comment->id,
+                'body' => $this->reply
             ]);
             $this->reset(['reply']);
             $this->dispatch('render')->to(CommentsIndex::class);
