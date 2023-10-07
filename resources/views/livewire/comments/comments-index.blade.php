@@ -33,7 +33,8 @@
                         </div>
                         <div x-data="{ showReplies: false, showInputReply: false }" class="mt-1">
                             @include('livewire.comments.reply-form')
-                            <i class="fa-solid fa-thumbs-up  text-gray-700 hover:cursor-pointer hover:text-red-300"></i>
+                            <x-icon wire:click="like({{$comment}})" class="fa-solid fa-heart"
+                             :active="$comment->isLikedbyme()"></x-icon>({{ $comment->likes->count() }})
                             @auth
                                 <p class="ml-2 inline text-sm hover:underline hover:cursor-pointer"
                                     x-on:click="showInputReply = !showInputReply">Reply<i

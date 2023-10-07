@@ -68,20 +68,24 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
-    public function posts(){
+    public function posts()
+    {
         return $this->HasMany(Post::class);
     }
     /* public function comments(){
         return $this->HasMany(Comments::class);
     } */
+    public function likes()
+    {
+        return $this->hasMany(CommentsLike::class);
+    }
     public function adminlte_desc()
-        {
-            return Auth::user()->email;
+    {
+        return Auth::user()->email;
+    }
 
-        }
-
-        public function adminlte_profile_url()
-        {
-            return 'profile.show';
-        }
+    public function adminlte_profile_url()
+    {
+        return 'profile.show';
+    }
 }

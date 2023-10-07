@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Comments;
+use App\Models\CommentsLike;
 use Livewire\Component;
 
 class CommentsIndex extends Component
@@ -40,7 +41,7 @@ class CommentsIndex extends Component
             'body' => $this->Comment
         ]);
         $this->reset(['Comment']);
-        $this->dispatch('render')->to(CommentsIndex::class);
+        $this->dispatch('render')->self();
     }
     public function incrementar()
     {
@@ -53,7 +54,7 @@ class CommentsIndex extends Component
     public function deletecomment(Comments $comment)
     {
         $comment->delete();
-        $this->dispatch('render')->to(CommentsIndex::class);
+        $this->dispatch('render')->self();
     }
     public function saveReply(Comments $comment)
     {
@@ -65,8 +66,24 @@ class CommentsIndex extends Component
                 'body' => $this->reply
             ]);
             $this->reset(['reply']);
-            $this->dispatch('render')->to(CommentsIndex::class);
+            $this->dispatch('render')->self();
         }
         //$this->dispatch('render')->to(CommentsIndex::class);
+    }
+
+    public function like(Comments $comment): void
+    {
+        if ($comment->isLikedbyme()) {
+
+            $comment->removeLike();
+
+            //$this->count--;
+        } else{
+                $comment->likes()->create([
+                    'user_id' => auth()->id(),
+                ]);
+            //$this->count++;
+        }
+        $this->dispatch('render')->self();
     }
 }
