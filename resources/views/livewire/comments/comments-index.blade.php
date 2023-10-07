@@ -1,9 +1,13 @@
     <div class=" container mx-auto items-center justify-center shadow-lg mt-20 mb-4 w-full py-2">
-        <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Comments Section
-            ({{ $post->comments->whereNull('parent_id')->count() }})</h2>
-        @auth
-            @include('livewire.comments.comment-form')
-        @endauth
+        <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Comments
+            ({{ $post->comments->count() }})</h2>
+        @if (Auth::check())
+        @include('livewire.comments.comment-form')
+        @else
+        <a href="{{route('login')}}" class="pl-4 text-blue-700 hover:underline">Sing in to comment</a>
+        <p class="inline">or</p>
+        <a href="{{route('register')}}" class=" text-blue-700 hover:underline">Sing up to comment</a>
+        @endif
         <div>
             @if ($post->comments->count())
                 @foreach ($comments as $comment)
@@ -32,9 +36,12 @@
                                 {{ $comment->body }}</p>
                         </div>
                         <div x-data="{ showReplies: false, showInputReply: false }" class="mt-1">
-                            @include('livewire.comments.reply-form')
-                            <x-icon wire:click="like({{$comment}})" class="fa-solid fa-heart"
-                             :active="$comment->isLikedbyme()"></x-icon>({{ $comment->likes->count() }})
+                            @if (Auth::check())
+                                <x-icon wire:click="like({{ $comment }})" class="fa-solid fa-thumbs-up mr-1"
+                                    :active="$comment->isLikedbyme()"></x-icon>{{ $comment->likes->count() }}
+                            @else
+                                <x-icon class="fa-solid fa-thumbs-up mr-1"></x-icon>{{ $comment->likes->count() }}
+                            @endif
                             @auth
                                 <p class="ml-2 inline text-sm hover:underline hover:cursor-pointer"
                                     x-on:click="showInputReply = !showInputReply">Reply<i
@@ -44,14 +51,16 @@
                                 {{-- <x-icon-btn title="Show replies" x-on:click="showReplies = !showReplies"> --}}
                                 <div class="inline">
                                     <p class="ml-2 inline text-sm hover:underline hover:cursor-pointer"
-                                        x-on:click="showReplies = !showReplies">
-                                        Show all replies ({{ $comment->child->count() }})
+                                        x-on:click="showReplies = !showReplies"
+                                        x-text="showReplies == false ? 'Show replies {{ $comment->child->count() }}' : 'Hide replies'">
+
 
                                     </p>
-                                </div>
-                                {{-- </x-icon-btn> --}}
+
+                                </div> {{-- </x-icon-btn> --}}
                                 @include('livewire.comments.replies')
                             @endif
+                            @include('livewire.comments.reply-form')
                         </div>
                     </div>
                 @endforeach

@@ -1,6 +1,5 @@
 @foreach ($comment->child as $item)
-    <div class="ml-4 border-l-4 border-l-blue-500 bg-blue-100 rounded"
-        x-show="showReplies">
+    <div class="ml-4 border-l-4 border-l-blue-500 rounded" x-show="showReplies">
         @auth
             @if (auth()->user()->id == $item->user->id)
                 <i class="px-2 py-2 float-right fa-solid fa-trash fa-md text-gray-700 hover:text-red-500"
@@ -21,6 +20,12 @@
 
             <p class="px-2 text-sm text-gray-600 sm:text-lg md:text-sm">
                 {{ $item->body }}</p>
+            @if (Auth::check())
+                <x-icon wire:click="like({{ $item }})" class="fa-solid fa-thumbs-up fa-sm ml-2 mr-1"
+                    :active="$item->isLikedbyme()"></x-icon>{{ $item->likes->count() }}
+            @else
+                <x-icon class="fa-solid fa-thumbs-up fa-sm ml-2 mr-1"></x-icon>{{ $item->likes->count() }}
+            @endif
         </div>
 
 

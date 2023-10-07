@@ -6,7 +6,9 @@
             name="body" id="body" placeholder='Type Your Comment' wire:model="Comment"></textarea>
         <x-input-error for="Comment"></x-input-error>
     </div>
-    <div class="-mr-1">
+    <div class="-mr-1 flex">
+        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"
+            class="h-10 w-10 rounded-full mr-1 object-cover" />
         <x-buttons.primary-button wire:click="save()">
             Leave Comment
         </x-buttons.primary-button>

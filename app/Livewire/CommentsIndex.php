@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Comments;
 use App\Models\CommentsLike;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CommentsIndex extends Component
@@ -73,17 +74,17 @@ class CommentsIndex extends Component
 
     public function like(Comments $comment): void
     {
-        if ($comment->isLikedbyme()) {
+            if ($comment->isLikedbyme()) {
 
-            $comment->removeLike();
+                $comment->removeLike();
 
-            //$this->count--;
-        } else{
+                //$this->count--;
+            } else {
                 $comment->likes()->create([
                     'user_id' => auth()->id(),
                 ]);
-            //$this->count++;
-        }
+                //$this->count++;
+            }
         $this->dispatch('render')->self();
     }
 }
