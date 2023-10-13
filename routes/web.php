@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthGoogleController;
+use App\Http\Controllers\MarkAsReadNotifications;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchPostsController;
@@ -32,7 +33,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+    Route::post('markNotificationAsRead/{notification}', [MarkAsReadNotifications::class, 'MarkAsRead'])->name('notification.MarkAsRead');
     Route::get('/addpasswordgoogle', [AuthGoogleController::class, 'setPasswordIndex'])->name('setPasswordIndex');
     Route::patch('/setPasswordUser/{user}', [AuthGoogleController::class, 'setPasswordUser'])->name('setPasswordUser');
 });

@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Comments;
 use App\Models\CommentsLike;
+use App\Notifications\NewPostComment;
+use App\Notifications\NewReplyComment;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -15,7 +17,6 @@ class CommentsIndex extends Component
     public $reply;
     public $pagination = 5;
     public $count;
-    public $hasReplies = false;
     protected $rules = [
         'Comment' => 'required',
     ];
@@ -36,11 +37,12 @@ class CommentsIndex extends Component
     public function save()
     {
         $this->validate();
-        Comments::create([
+        $newComment=Comments::create([
             'post_id' => $this->post->id,
             'user_id' => auth()->user()->id,
             'body' => $this->Comment
         ]);
+        $this->post->user->notify(new NewPostComment($this->post,$newComment));
         $this->reset(['Comment']);
         $this->dispatch('render')->self();
     }
@@ -60,12 +62,13 @@ class CommentsIndex extends Component
     public function saveReply(Comments $comment)
     {
         if ($this->reply) {
-            Comments::create([
+            $newReply=Comments::create([
                 'post_id' => $this->post->id,
                 'user_id' => auth()->user()->id,
                 'parent_id' => $comment->id,
                 'body' => $this->reply
             ]);
+            $comment->user->notify(new NewReplyComment($this->post,$comment,$newReply));
             $this->reset(['reply']);
             $this->dispatch('render')->self();
         }
