@@ -18,7 +18,7 @@
         <div class="card-body">
             {!! Form::model($tag, ['route' => ['admin.tags.update', $tag], 'method' => 'PUT']) !!}
             @include('admin.tags.partials.form')
-            {!! Form::submit('Update category', ['class' => 'btn btn-primary mt-4']) !!}
+            {!! Form::submit('Update tag', ['class' => 'btn btn-primary mt-4']) !!}
             {!! Form::close() !!}
         </div>
     </div>
