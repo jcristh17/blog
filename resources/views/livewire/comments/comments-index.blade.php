@@ -4,9 +4,10 @@
         @if (Auth::check())
         @include('livewire.comments.comment-form')
         @else
-        <a href="{{route('login')}}" class="pl-4 text-blue-700 hover:underline">Sing in to comment</a>
+        <a href="{{route('login')}}" class="pl-4 text-blue-700 hover:underline">Sing in</a>
         <p class="inline">or</p>
-        <a href="{{route('register')}}" class=" text-blue-700 hover:underline">Sing up to comment</a>
+        <a href="{{route('register')}}" class=" text-blue-700 hover:underline">Sing up</a>
+        <p class="inline">to comment</p>
         @endif
         <div>
             @if ($post->comments->count())
